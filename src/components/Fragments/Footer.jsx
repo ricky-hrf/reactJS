@@ -8,7 +8,7 @@ const Footer = () => {
 
           {/* Logo & Deskripsi */}
           <div>
-            <h2 className="text-2xl font-bold text-white">BossMudaStore</h2>
+            <h2 className="text-2xl font-bold text-white">OnoNihaStore</h2>
             <p className="mt-3 text-gray-400">Tempat terbaik untuk mendapatkan produk berkualitas dengan harga terbaik.</p>
           </div>
 
@@ -26,9 +26,9 @@ const Footer = () => {
           {/* Kontak */}
           <div>
             <h3 className="text-lg font-semibold text-white mb-3">Kontak Kami</h3>
-            <p className="flex items-center gap-2"><FaMapMarkerAlt className="text-purple-400" /> Jl. Boss Muda No.1, Jakarta</p>
+            <p className="flex items-center gap-2"><FaMapMarkerAlt className="text-purple-400" /> Jl. Jalani Aja Dulu, Sosweet</p>
             <p className="flex items-center gap-2"><FaPhoneAlt className="text-purple-400" /> +62 812-3456-7890</p>
-            <p className="flex items-center gap-2"><FaEnvelope className="text-purple-400" /> support@bossmudastore.com</p>
+            <p className="flex items-center gap-2"><FaEnvelope className="text-purple-400" /> support@ononihastore.com</p>
           </div>
 
           {/* Newsletter & Sosial Media */}

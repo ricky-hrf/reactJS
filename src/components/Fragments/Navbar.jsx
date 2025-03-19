@@ -13,7 +13,7 @@ const Navbar = ({cartCount, setIsCartOpen}) => {
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="text-2xl font-bold text-purple-700">
-          TokoBuahDunia
+          OnoNihaStore
         </Link>
 
         {/* Menu Desktop */}
