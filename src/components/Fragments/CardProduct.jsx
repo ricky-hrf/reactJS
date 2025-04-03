@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 const Card = ({ product, TambahKeKeranjang}) => {
   
   return (
-    <div className="w-80 h-[400px] rounded-2xl flex flex-col shadow-lg bg-white border border-purple-500">
+    <div className="w-80 h-[400px] rounded-2xl flex flex-col shadow-lg bg-white border">
       <div className="h-[180px] w-full overflow-hidden">
         <CardImage image={product.image} />
       </div>
@@ -25,6 +25,7 @@ const Card = ({ product, TambahKeKeranjang}) => {
 }
 Card.propTypes = {
   product: PropTypes.shape({
+    id: PropTypes.number.isRequired,
   image: PropTypes.string,
   title: PropTypes.string,
   description: PropTypes.string,

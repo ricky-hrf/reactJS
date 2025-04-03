@@ -8,7 +8,7 @@ const CardContent = (props) => {
   return (
     <>
     <div className="items-center p-4 border-b flex flex-justify-between">
-        <span className='font-semibold text-purple-800 text-sm'>$ {price}</span>
+        <span className='font-semibold text-purple-800 text-sm'> {price.toLocaleString("id-ID", {style:"currency", currency:"IDR"})}</span>
         <div className='ml-auto'>
           <button onClick={() => setIsFavorite(!isFavorite)} >
         <box-icon name="heart" type={isFavorite ? "solid" : "regular"} color={isFavorite ? "red" : "gray"}></box-icon>
