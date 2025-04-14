@@ -18,8 +18,8 @@ const Navbar = ({cartCount, setIsCartOpen}) => {
 
         {/* Menu Desktop */}
         <ul className="hidden md:flex gap-6 text-gray-700 font-medium">
-          <li><Link to="/" className="hover:text-purple-600">Home</Link></li>
-          <li><Link to="/products" className="hover:text-purple-600">Products</Link></li>
+          <li><Link to="/home" className="hover:text-purple-600">Home</Link></li>
+          <li><Link to="/product" className="hover:text-purple-600">Products</Link></li>
           <li><Link to="/about" className="hover:text-purple-600">About</Link></li>
           <li><Link to="/contact" className="hover:text-purple-600">Contact</Link></li>
         </ul>

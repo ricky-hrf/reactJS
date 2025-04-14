@@ -46,5 +46,8 @@ AuthLayouts.propTypes = {
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
 };
+  Navigation.propTypes = {
+    type: PropTypes.string.isRequired,
+  }
 
 export default AuthLayouts;

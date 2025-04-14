@@ -6,11 +6,12 @@ import LoginPage from "./Pages/login";
 import RegisterPage from './Pages/register';
 import ErrorPage from './Pages/Error';
 import ProductPage from './Pages/product';
+import HomePage from './Pages/home';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>hello world</div>,
+    element: <HomePage/>,
     errorElement: <ErrorPage />,
   },
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
     element: <RegisterPage/>,
   },
   {
+    path: "/home",
+    element: <HomePage/>,
+  },
+  {
     path: "/product",
     element: <ProductPage/>,
   }
@@ -29,7 +34,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <cartProvider>
+      <RouterProvider router={router} />
+    </cartProvider>
   </React.StrictMode>,
 )
 

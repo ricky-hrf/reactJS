@@ -6,7 +6,7 @@ import Footer from "../components/Fragments/Footer";
 
 const products = [{
   id: 1,
-  image: "/product/product-2.jpg",
+  image: "../product/product-2.jpg",
   title: "Buah Pisang",
   description: "buah ini yang membuat manusia semakin kuat",
   price: 100000
@@ -66,6 +66,7 @@ const KurangiJumlah = (id) => {
   ));
 };
 
+  const totalHarga = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (
     <>
@@ -84,7 +85,8 @@ const KurangiJumlah = (id) => {
           cart={cart}
           HapusDariKeranjang={HapusDariKeranjang}
           TambahJumlah={TambahJumlah}
-          KurangiJumlah = {KurangiJumlah}
+          KurangiJumlah={KurangiJumlah}
+          totalHarga={totalHarga}
         />        
       </div>
       <Footer />

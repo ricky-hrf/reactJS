@@ -1,7 +1,7 @@
 
 import PropTypes from 'prop-types';
 
-const CartModal = ({ isOpen, setIsOpen, cart, HapusDariKeranjang, TambahJumlah, KurangiJumlah }) => {
+const CartModal = ({ isOpen, setIsOpen, cart, HapusDariKeranjang, TambahJumlah, KurangiJumlah, totalHarga }) => {
   if (!isOpen) return null;
   return (
     <div className="fixed top-10 right-24 bg-slate-100 shadow-lg rounded-lg w-auto min-w-[300px] max-w-[600px] p-4 z-50">
@@ -31,29 +31,42 @@ const CartModal = ({ isOpen, setIsOpen, cart, HapusDariKeranjang, TambahJumlah, 
                 {cart.map((item, index) => (
                   <tr key={index} className="border-b text-sm">
                     <td className="py-2 px-3">{item.title}</td>
-                  <td className="text-right py-2 px-3">
-                    {item.price.toLocaleString("id-ID", {style:"currency", currency:"IDR"})}
-                  </td>
-                    <td className="text-center py-2 px-3 flex gap-3 p-4 mt-auto">
-                      <div className="flex-1 items-center">
+                    <td className="text-right py-2 px-3">
+                      {item.price.toLocaleString("id-ID", {style:"currency", currency:"IDR"})}
+                    </td>
+                    <td className="text-center py-2 px-3 flex items-center gap-3 p-4 mt-auto">
+                      <div className="">
                         {item.quantity}
                       </div>
-                      <div className="flex-1 text-sm">
+                      <div>
                         <button onClick={() => TambahJumlah(item.id)}><box-icon name='chevron-up'></box-icon></button>
                         <button onClick={() => KurangiJumlah(item.id)}><box-icon name='chevron-down' ></box-icon></button>
                       </div>
                     </td>
-                  <td className="text-right py-2 px-1">
-                    {(item.price * item.quantity).toLocaleString("id-ID", {style:"currency", currency:"IDR"})}
-                  </td>
-                  <td className="text-center py-2 px-3">
-                    <button onClick={() => HapusDariKeranjang(item.id)}>
-                      <box-icon name='trash' color="gray"></box-icon>
-                    </button>
-                  </td>
+                    <td className="text-right py-2 px-1">
+                      {(item.price * item.quantity).toLocaleString("id-ID", {style:"currency", currency:"IDR"})}
+                    </td>
+                    <td className="text-center py-2 px-3">
+                      <button onClick={() => HapusDariKeranjang(item.id)}>
+                        <box-icon name='trash' color="gray"></box-icon>
+                      </button>
+                    </td>
                   </tr>
-                ))}
+                )
+                )}
               </tbody>
+              <tfoot>
+                <tr className="bg-gray-100 text-sm font-semibold">
+                  <td colSpan="3" className="text-center py-2 px-3 border-t-2">Total Harga barang</td>
+                  <td className="text-right py-2 px-3">
+                    {totalHarga.toLocaleString("id-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                    })}
+                  </td>
+                  <td></td>
+                </tr>
+              </tfoot>
             </table>
             <button className="mt-4 w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">Checkout</button>
           </div>
@@ -75,6 +88,7 @@ CartModal.propTypes = {
   HapusDariKeranjang: PropTypes.func.isRequired,
   TambahJumlah: PropTypes.func.isRequired,
   KurangiJumlah: PropTypes.func.isRequired,
+  totalHarga: PropTypes.func.isRequired,
 };
 
 export default CartModal;

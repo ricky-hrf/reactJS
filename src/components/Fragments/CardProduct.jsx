@@ -29,7 +29,7 @@ Card.propTypes = {
   image: PropTypes.string,
   title: PropTypes.string,
   description: PropTypes.string,
-  price: PropTypes.string,
+  price: PropTypes.number,
   TambahKeKeranjang: PropTypes.func,
   }).isRequired,
   TambahKeKeranjang: PropTypes.func.isRequired,

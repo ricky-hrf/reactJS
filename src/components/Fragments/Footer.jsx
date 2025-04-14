@@ -1,25 +1,42 @@
-import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaTwitter,
+  FaYoutube,
+  FaMapMarkerAlt,
+  FaPhoneAlt,
+  FaEnvelope,
+  FaHome,
+  FaBoxOpen,
+  FaInfoCircle
+
+} from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-gray-300 py-12">
+    <footer className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-gray-300 py-12 fixed-bottom">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-
           {/* Logo & Deskripsi */}
           <div>
-            <h2 className="text-2xl font-bold text-white">OnoNihaStore</h2>
-            <p className="mt-3 text-gray-400">Tempat terbaik untuk mendapatkan produk berkualitas dengan harga terbaik.</p>
+            <h2 className="text-lg font-semibold text-white mb-3">Pembayaran</h2>
+            <div className="grid grid-cols-3 gap-2">
+              <div className="bg-white">Metode 1</div>
+              <div className="bg-red-400">Metode 2</div>
+              <div className="bg-green-500">Metode 3</div>
+              <div className="bg-green-500">Metode 3</div>
+              <div className="bg-green-500">Metode 3</div>
+            </div>
           </div>
 
           {/* Navigasi Cepat */}
           <div>
             <h3 className="text-lg font-semibold text-white mb-3">Navigasi</h3>
             <ul className="space-y-2">
-              <li><a href="/" className="hover:text-purple-400 transition">🏠 Home</a></li>
-              <li><a href="/products" className="hover:text-purple-400 transition">🛍 Produk</a></li>
-              <li><a href="/about" className="hover:text-purple-400 transition">📜 Tentang Kami</a></li>
-              <li><a href="/contact" className="hover:text-purple-400 transition">📞 Kontak</a></li>
+              <li><a href="/" className="flex items-center gap-2 hover:text-purple-400 transition"><FaHome className="mr-2"></FaHome>Home</a></li>
+              <li><a href="/product" className="flex items-center gap-2 hover:text-purple-400 transition"><FaBoxOpen className="mr-2" />Produk</a></li>
+              <li><a href="/about" className="flex items-center gap-2 hover:text-purple-400 transition"><FaInfoCircle className="mr-2" />Tentang Kami</a></li>
+              <li><a href="/contact" className="flex items-center gap-2 hover:text-purple-400 transition"><FaEnvelope className="mr-2" />Kontak</a></li>
             </ul>
           </div>
 
@@ -54,7 +71,7 @@ const Footer = () => {
 
         {/* Bagian Bawah Footer */}
         <div className="flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400">&copy; 2025 BossMudaStore. All rights reserved.</p>
+          <p className="text-gray-400">&copy; 2025 OnoNihaStore. All rights reserved.</p>
           <div className="flex space-x-4">
             <a href="#" className="text-gray-400 hover:text-purple-400 transition">Kebijakan Privasi</a>
             <a href="#" className="text-gray-400 hover:text-purple-400 transition">Syarat & Ketentuan</a>
