@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { FaUserCircle } from "react-icons/fa";
 
 const Navbar = ({cartCount, setIsCartOpen}) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   return (
@@ -17,12 +16,7 @@ const Navbar = ({cartCount, setIsCartOpen}) => {
         </Link>
 
         {/* Menu Desktop */}
-        <ul className="hidden md:flex gap-6 text-gray-700 font-medium">
-          <li><Link to="/home" className="hover:text-purple-600">Home</Link></li>
-          <li><Link to="/product" className="hover:text-purple-600">Products</Link></li>
-          <li><Link to="/about" className="hover:text-purple-600">About</Link></li>
-          <li><Link to="/contact" className="hover:text-purple-600">Contact</Link></li>
-        </ul>
+        
 
         {/* Icon Cart & Burger Menu */}
         <div className="flex items-center gap-4">
@@ -52,23 +46,8 @@ const Navbar = ({cartCount, setIsCartOpen}) => {
             </div>
           )}
         </div>
-
-          {/* Burger Menu for Mobile */}
-          <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-            <box-icon name={isOpen ? "x" : "menu"} color="gray" size="30px"></box-icon>
-          </button>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      {isOpen && (
-        <ul className="md:hidden bg-white py-4 flex flex-col items-center gap-4 text-gray-700 font-medium">
-          <li><Link to="/" className="hover:text-purple-600">Home</Link></li>
-          <li><Link to="/products" className="hover:text-purple-600">Products</Link></li>
-          <li><Link to="/about" className="hover:text-purple-600">About</Link></li>
-          <li><Link to="/contact" className="hover:text-purple-600">Contact</Link></li>
-        </ul>
-      )}
     </nav>
   );
 };

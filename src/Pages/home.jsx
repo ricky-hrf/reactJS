@@ -2,9 +2,9 @@ import Navbar from '../components/Fragments/Navbar';
 import Footer from "../components/Fragments/Footer";
 import Content from "../components/Layouts/contentLayouts";
 
+
 // Komponen utama HomePage
 const HomePage = () => {
-
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />
