@@ -10,7 +10,7 @@ const MainLayouts = ({ children }) => {
     <div className="">
       <Navbar />
       <CartDrawer />
-      <main className="pt-16 min-h-screen bg-gray-100">
+      <main className="pt-24 md:pt-16 min-h-screen bg-gray-100">
         {children}
       </main>
       <Footer />

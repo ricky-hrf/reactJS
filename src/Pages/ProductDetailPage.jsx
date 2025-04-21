@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import {getProduct} from '../services/productService'
+import MainLayout from '../components/Layouts/MainLayouts'
+import {
+  FaStar, FaPlus, FaMinus, FaCommentDots, FaShareAlt,
+  FaHeart, FaRegHeart
+  } from 'react-icons/fa';
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -9,19 +13,20 @@ const ProductDetailPage = () => {
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const fetchProduct = async () => {
-    try {
-      const data = await getProduct();
-      setProduct(data);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const [favorited, setFavorited] = useState(false);
 
   useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+        const data = await res.json();
+        setProduct(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
     fetchProduct();
   }, [id]);
 
@@ -36,65 +41,120 @@ const ProductDetailPage = () => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="aspect-w-1 aspect-h-1 bg-gray-100 rounded-lg overflow-hidden">
-          <img
-            src={product.image}
-            alt={product.title}
-            className="w-full h-full object-contain p-8"
-          />
-        </div>
-
-        {/* Product Info */}
-        <div className="space-y-6">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">{product.title}</h1>
-            <div className="mt-4 flex items-center justify-between">
-              <p className="text-2xl text-purple-600">
-                ${product.price}
-              </p>
-              <span className="bg-gray-200 text-gray-800 text-sm px-3 py-1 rounded-full">
-                {product.category}
-              </span>
+    <>
+      <MainLayout>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 md:grid-cols-6 gap-8">
+          <div className="lg:col-span-4 md:col-span-2">
+            <div className="rounded-lg overflow-hidden border border-purple-300 h-[300px] w=full">
+              <img
+                src={product.image}
+                alt={product.title}
+                className="w-full h-full object-contain p-8"
+              />
             </div>
-          </div>
-
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-lg font-medium text-gray-900">Deskripsi Produk</h3>
-              <p className="text-gray-500 mt-2">{product.description}</p>
-            </div>
-
-            <div className="border-t border-gray-200 pt-4">
-              <dl className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <dt className="text-gray-500">Rating</dt>
-                  <dd className="text-gray-900">
-                    {product.rating?.rate} / 5 ({product.rating?.count} reviews)
-                  </dd>
+              <div className="flex justify-start gap-4 mt-4">
+                <div className="h-16 w-16 rounded-lg border hover:border-purple-300 hover:bg-purple-50 cursor-pointer">
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    className="w-full h-full p-2 object-contain "
+                  />
                 </div>
-              </dl>
-            </div>
+                <div className="h-16 w-16 rounded-lg border hover:border-purple-300 cursor-pointer hover:bg-purple-50">
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    className="w-full h-full p-2 object-contain "
+                  />
+                </div>
+              </div>
           </div>
 
-          <button
-            onClick={() => {
-              addToCart({
-                id: product.id,
-                name: product.title,
-                price: product.price,
-                image: product.image
-              });
-              alert('Produk berhasil ditambahkan ke keranjang!');
-            }}
-            className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded-lg transition-colors"
-          >
-            Tambah ke Keranjang
-          </button>
+          <div className="lg:col-span-5 md:col-span-4">
+            <div className='space-y-4'>
+              <h1 className="text-xl font-bold text-gray-800">{product.title}</h1>
+              <div className="flex justify-start items-center gap-2 my-2">
+                <FaStar className='h-6 w-6' color='yellow'/>
+                <span className='text-lg text-gray-600'>
+                  {product.rating?.rate} / 5 ({product.rating?.count} reviews)
+                </span>
+              </div>
+              <div className="my-4 flex items-center justify-between">
+                <p className="text-2xl font-semibold text-purple-600">
+                  {product.price.toLocaleString("id-ID", {style:"currency", currency:"IDR"})}
+                </p>
+                  <button onClick={() => setFavorited(!favorited)} className='text-purple-600 text-xl'>
+                    {favorited ? <FaHeart /> : <FaRegHeart />}
+                </button>
+                </div>
+                <div className="border border-purple-100 mb-4"></div>
+            </div>
+
+            <div className="space-y-4">
+              <div className='mt-4'>
+                <h3 className="text-lg font-medium text-gray-900">Deskripsi Produk</h3>
+                <p className="text-gray-500 mt-2">{product.description}</p>
+              </div>
+            </div>
+          </div>
+          <div className="lg:col-span-3 p-4">
+            <div className="border border-purple-600 rounded-lg p-4">
+              <h3 className='font-semibold text-xl text-center text-purple-600'>Jumlah Barang</h3>
+              <div className="my-4 text-gray-800 font-semibold">
+                <span>Biru</span>
+              </div>
+              <div className="border-b border-purple-200"></div>
+              <div className="flex justify-start items-center gap-4">
+                <div className="flex justify-between items-center gap-4 my-3 border border-purple-600 rounded-lg">
+                  <div className="cursor-pointer text-purple-700 hover:bg-gray-200 rounded-l-lg p-2">
+                    <FaMinus />
+                  </div>
+                  <div className="text-gray-700">
+                    <span>1</span>
+                  </div>
+                  <div className="cursor-pointer text-purple-700 hover:bg-gray-200 rounded-r-lg p-2">
+                    <FaPlus />
+                  </div>
+                </div>
+                <span className='text-gray-700 font-medium'>Stok: 200</span>
+              </div>
+              <div className="mb-2 flex justify-between text-gray-600">
+                <span>SubTotal: </span>
+                <span>Rp 100.000</span>
+              </div>
+              <div className="">
+                <button
+                onClick={() => {
+                addToCart({
+                  id: product.id,
+                  name: product.title,
+                  price: product.price,
+                  image: product.image
+                });
+                }}
+                className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 px-6 rounded-lg transition-colors mb-2"
+                >
+                  Tambah ke Keranjang
+                </button>
+                <button className="w-full border border-purple-600 text-purple-700 py-2 px-6 rounded-lg font-semibold hover:bg-gray-100">Beli</button>
+              </div>
+              <div className="flex justify-between gap-4 mt-2">
+                <div className="flex justify-between items-center gap-2 text-purple-600 cursor-pointer rounded-lg hover:bg-gray-100 p-2">
+                  <FaCommentDots />
+                  <span>Chat</span>
+                </div>
+                <div className="flex justify-between items-center gap-2 text-purple-600 cursor-pointer rounded-lg hover:bg-gray-100 p-2">
+                  <FaShareAlt />
+                  <span>Share</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+        </div>
+      </MainLayout>
+    </>
   );
 };
 

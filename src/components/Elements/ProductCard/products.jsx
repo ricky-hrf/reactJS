@@ -1,15 +1,17 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { FaShoppingCart } from "react-icons/fa";
-
+import { useCart } from '../../../context/CartContext';
+import { Link } from 'react-router-dom';
 
 const Card = ({ product}) => {
   const [isFavorite, setIsFavorite] = useState(false);
+  const { addToCart } = useCart();
 
   return (
     <div className="w-full h-[380px] rounded-2xl flex flex-col shadow-lg bg-white border hover:shadow-3xl hover:scale-105 transition-transform duration-300">
       <div className="h-[180px] w-full overflow-hidden">
-        <img src={product.image} alt="heheh" />
+        <img src={product.image} alt={product.title} />
       </div>
       <div>
         <div className="items-center px-4 py-2 border-b flex flex-justify-between">
@@ -21,11 +23,19 @@ const Card = ({ product}) => {
           </div>
         </div>
         <div className='px-4 py-2 h-[90px] overflow-hidden'>
-          <h1 className="text-sm font-semibold text-gray-800 line-clamp-2 hover:underline cursor-pointer">{product.title}</h1>
+          <Link 
+            to={`/products/${product.id}`}
+            className="shrink-0"
+            >
+              <h1 className="text-sm font-semibold text-gray-800 line-clamp-2 hover:underline cursor-pointer">
+                {product.title}
+              </h1>
+            </Link>
           <p className="text-slate-500 text-xs line-clamp-2">{product.description}</p>
         </div>
         <div className="p-2">
-          <button className="mt-2 w-full bg-purple-600 text-white text-sm py-2 rounded-lg flex items-center justify-center hover:bg-purple-700 transition">
+          <button className="mt-2 w-full bg-purple-600 text-white text-sm py-2 rounded-lg flex items-center justify-center hover:bg-purple-700 transition"
+          onClick={() => addToCart(product)}>
               <FaShoppingCart />
             <span className='ml-2'>
               Add to Cart

@@ -5,13 +5,13 @@ const Products = ({ products }) => {
 
   return (
     <div className="container mx-auto px-6">
-          <h2 className="text-lg md:xl lg:2xl font-bold text-left text-gray-800 mb-4">Produk Kami</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 justify-center">
+      <h2 className="text-lg md:xl lg:2xl font-bold text-left text-gray-800 mb-4">Produk Kami</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 justify-center">
             {products.map((product) => (
                   <ProductCard key={product.id} product={product} />
             ))}
-            </div>
         </div>
+    </div>
   )
 }
 Products.propTypes = {

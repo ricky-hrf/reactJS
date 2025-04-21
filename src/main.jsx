@@ -2,11 +2,13 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {CartProvider} from './context/CartContext';
 import LoginPage from "./Pages/login";
 import RegisterPage from './Pages/register';
 import ErrorPage from './Pages/Error';
 import ProductPage from './Pages/product';
 import HomePage from './Pages/home';
+import ProductDetail from './Pages/ProductDetailPage'
 
 const router = createBrowserRouter([
   {
@@ -23,20 +25,20 @@ const router = createBrowserRouter([
     element: <RegisterPage/>,
   },
   {
-    path: "/home",
-    element: <HomePage/>,
-  },
-  {
     path: "/product",
     element: <ProductPage/>,
-  }
+  },
+  {
+    path: "/products/:id",
+    element: <ProductDetail/>,
+  },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <cartProvider>
+    <CartProvider>
       <RouterProvider router={router} />
-    </cartProvider>
+    </CartProvider>
   </React.StrictMode>,
 )
 
