@@ -9,6 +9,7 @@ import ErrorPage from './Pages/Error';
 import ProductPage from './Pages/product';
 import HomePage from './Pages/home';
 import ProductDetail from './Pages/ProductDetailPage'
+import CheckoutPage from './Pages/CheckoutPage';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
     path: "/products/:id",
     element: <ProductDetail/>,
   },
+  {
+    path: "/checkout",
+    element: <CheckoutPage/>
+  }
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(

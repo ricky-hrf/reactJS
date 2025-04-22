@@ -14,6 +14,20 @@ const ProductDetailPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [favorited, setFavorited] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+  const [stock] = useState(100)
+
+  const tambahQuantity = () => {
+    if(quantity<stock){
+      setQuantity(prev => prev + 1);
+    }
+  };
+
+  const kurangQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(prev => prev - 1);
+    }
+  };
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -39,6 +53,8 @@ const ProductDetailPage = () => {
       ))}
     </div>
   );
+
+  const subTotal = product ? product.price * quantity : 0;
 
   return (
     <>
@@ -107,44 +123,48 @@ const ProductDetailPage = () => {
               <div className="border-b border-purple-200"></div>
               <div className="flex justify-start items-center gap-4">
                 <div className="flex justify-between items-center gap-4 my-3 border border-purple-600 rounded-lg">
-                  <div className="cursor-pointer text-purple-700 hover:bg-gray-200 rounded-l-lg p-2">
+                    <div className="cursor-pointer text-purple-700 hover:bg-gray-200 rounded-l-lg p-2"
+                    onClick={kurangQuantity}>
                     <FaMinus />
                   </div>
                   <div className="text-gray-700">
-                    <span>1</span>
+                      <span>{ quantity}</span>
                   </div>
-                  <div className="cursor-pointer text-purple-700 hover:bg-gray-200 rounded-r-lg p-2">
+                    <div
+                      onClick={tambahQuantity}
+                      className="cursor-pointer text-purple-700 hover:bg-gray-200 rounded-r-lg p-2">
                     <FaPlus />
                   </div>
                 </div>
-                <span className='text-gray-700 font-medium'>Stok: 200</span>
+                  <span className='text-gray-700'>{ stock}</span>
               </div>
               <div className="mb-2 flex justify-between text-gray-600">
                 <span>SubTotal: </span>
-                <span>Rp 100.000</span>
+                <span className='font-semibold text-lg'>{subTotal.toLocaleString("id-ID", {style:"currency", currency:"IDR"})}</span>
               </div>
-              <div className="">
+              <div className="mt-4">
                 <button
                 onClick={() => {
                 addToCart({
                   id: product.id,
                   name: product.title,
                   price: product.price,
-                  image: product.image
+                  image: product.image,
+                  quantity: quantity
                 });
                 }}
                 className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 px-6 rounded-lg transition-colors mb-2"
                 >
                   Tambah ke Keranjang
                 </button>
-                <button className="w-full border border-purple-600 text-purple-700 py-2 px-6 rounded-lg font-semibold hover:bg-gray-100">Beli</button>
+                <button className="w-full border border-purple-600 text-purple-700 py-2 px-6 rounded-lg font-semibold hover:bg-gray-200">Beli</button>
               </div>
               <div className="flex justify-between gap-4 mt-2">
-                <div className="flex justify-between items-center gap-2 text-purple-600 cursor-pointer rounded-lg hover:bg-gray-100 p-2">
+                <div className="flex justify-between items-center gap-2 text-purple-600 cursor-pointer rounded-lg hover:bg-gray-200 hover:text-purple-700 p-2">
                   <FaCommentDots />
                   <span>Chat</span>
                 </div>
-                <div className="flex justify-between items-center gap-2 text-purple-600 cursor-pointer rounded-lg hover:bg-gray-100 p-2">
+                <div className="flex justify-between items-center gap-2 text-purple-600 cursor-pointer rounded-lg hover:bg-gray-200 hover:text-purple-700 p-2">
                   <FaShareAlt />
                   <span>Share</span>
                 </div>

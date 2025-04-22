@@ -80,16 +80,15 @@ const CartDrawer = () => {
                         onClick={() => setIsCartOpen(false)}
                         className="shrink-0"
                       >
-                        <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded" />
+                        <img src={item.image} alt={item.title} className="w-16 h-16 object-cover rounded" />
                       </Link>
                       <div>
-                        <h4 className="font-medium">{item.name}</h4>
+                        <h4 className="font-medium">{item.title}</h4>
                         <p className="text-sm text-gray-500">
                           {item.quantity} × Rp {item.price.toLocaleString()}
                         </p>
                       </div>
                     </div>
-
                     <div className="flex items-center gap-3">
                       <div className="flex items-center gap-2 bg-gray-100 rounded-lg">
                         <button onClick={() => decreaseQuantity(item.id)} className="px-3 py-1 text-gray-600 hover:bg-gray-200 rounded-l-lg">
@@ -135,9 +134,11 @@ const CartDrawer = () => {
                   <span className="font-semibold">Total:</span>
                   <span className="font-bold text-purple-600">Rp {totalPrice.toLocaleString()}</span>
                 </div>
-                <button className="w-full py-3 px-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-colors" onClick={() => setIsCartOpen(false)}>
-                  Checkout
-                </button>
+                <Link to={'/checkout'}>
+                  <button className="w-full py-3 px-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-colors" onClick={() => setIsCartOpen(false)}>
+                    Checkout
+                  </button>
+                </Link>
               </div>
           )}
         </div>
