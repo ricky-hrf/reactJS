@@ -6,55 +6,32 @@ import {
   FaStar, FaPlus, FaMinus, FaCommentDots, FaShareAlt,
   FaHeart, FaRegHeart
   } from 'react-icons/fa';
+import { getProductById } from '../services/productService';
 
 const ProductDetailPage = () => {
+  const { addToCart, increaseQuantity, decreaseQuantity } = useCart();
+  const [favorited, setFavorited] = useState(null);
   const { id } = useParams();
-  const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [favorited, setFavorited] = useState(false);
-  const [quantity, setQuantity] = useState(1);
-  const [stock] = useState(100)
-
-  const tambahQuantity = () => {
-    if(quantity<stock){
-      setQuantity(prev => prev + 1);
-    }
-  };
-
-  const kurangQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(prev => prev - 1);
-    }
-  };
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await fetch(`https://fakestoreapi.com/products/${id}`);
-        const data = await res.json();
+        const data = await getProductById(id);
         setProduct(data);
       } catch (err) {
         setError(err.message);
       } finally {
-        setIsLoading(false);
+        setLoading(false);
       }
     };
     fetchProduct();
   }, [id]);
 
-  if (error) return <div className="text-red-500 p-4">Error: {error}</div>;
-
-  if (isLoading) return (
-    <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-2 pt-4">
-      {[...Array(10)].map((_, i) => (
-        <div key={i} className="animate-pulse bg-gray-200 h-48 rounded-lg" />
-      ))}
-    </div>
-  );
-
-  const subTotal = product ? product.price * quantity : 0;
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>
 
   return (
     <>
@@ -124,35 +101,27 @@ const ProductDetailPage = () => {
               <div className="flex justify-start items-center gap-4">
                 <div className="flex justify-between items-center gap-4 my-3 border border-purple-600 rounded-lg">
                     <div className="cursor-pointer text-purple-700 hover:bg-gray-200 rounded-l-lg p-2"
-                    onClick={kurangQuantity}>
+                      onClick={()=> decreaseQuantity(product.id)}
+                    >
                     <FaMinus />
                   </div>
                   <div className="text-gray-700">
-                      <span>{ quantity}</span>
+                      <span>{product.quantity }</span>
                   </div>
                     <div
-                      onClick={tambahQuantity}
-                      className="cursor-pointer text-purple-700 hover:bg-gray-200 rounded-r-lg p-2">
+                      className="cursor-pointer text-purple-700 hover:bg-gray-200 rounded-r-lg p-2"
+                    onClick={()=> increaseQuantity(product.id)}>
                     <FaPlus />
                   </div>
                 </div>
-                  <span className='text-gray-700'>{ stock}</span>
+                  <span className='text-gray-700'></span>
               </div>
               <div className="mb-2 flex justify-between text-gray-600">
                 <span>SubTotal: </span>
-                <span className='font-semibold text-lg'>{subTotal.toLocaleString("id-ID", {style:"currency", currency:"IDR"})}</span>
+                <span className='font-semibold text-lg'>100,000</span>
               </div>
               <div className="mt-4">
                 <button
-                onClick={() => {
-                addToCart({
-                  id: product.id,
-                  name: product.title,
-                  price: product.price,
-                  image: product.image,
-                  quantity: quantity
-                });
-                }}
                 className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 px-6 rounded-lg transition-colors mb-2"
                 >
                   Tambah ke Keranjang

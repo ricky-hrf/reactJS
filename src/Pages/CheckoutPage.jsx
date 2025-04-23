@@ -7,6 +7,10 @@ import ConfirmationModal from '../components/Elements/Common/ConfirmationModal';
 const CheckoutPage = () => {
   const { cartItems, increaseQuantity, decreaseQuantity, removeFromCart, } = useCart();
   const [itemToDelete, setItemToDelete] = useState(null);
+  const SubTotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const shippingCost = 5000;
+  const discount = 2500;
+  const totalPayment = (SubTotal + shippingCost) - discount;
 
   return (
     <div className="min-h-screen bg-gray-100 py-8">
@@ -159,39 +163,28 @@ const CheckoutPage = () => {
           </div>
 
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-xl shadow-purple-300 p-6 text-gray">
+            <div className="bg-white rounded-lg shadow-xl shadow-purple-300 p-6 text-gray-600">
               <h2 className="text-xl font-semibold mb-4">Ringkasan Pesanan</h2>
               <div className="space-y-3 mb-6">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span>Rp 100.000</span>
+                    <span>Rp {SubTotal.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Ongkos Kirim</span>
-                  <span>Rp 100.000</span>
+                  <span>Rp {shippingCost.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Diskon</span>
-                  <span>- Rp 25.000</span>
+                  <span>Rp {discount.toLocaleString()}</span>
                 </div>
                 
                 <div className="border-t pt-3">
                   <div className="flex justify-between font-bold">
                     <span>Total</span>
-                    <span>Rp 250.000</span>
+                    <span>Rp {totalPayment.toLocaleString()}</span>
                   </div>
                 </div>
-              </div>
-
-              <div className="mb-4">
-                <input
-                  type="text"
-                  placeholder="Kode Promo"
-                  className="border rounded-lg p-3 w-full"
-                />
-                <button className="mt-2 text-purple-600 hover:text-purple-800">
-                  Gunakan Kode Promo
-                </button>
               </div>
 
               <button className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 
@@ -207,11 +200,10 @@ const CheckoutPage = () => {
           </div>
         </div>
 
-        {/* Security Badges */}
         <div className="mt-8 text-center">
           <div className="flex justify-center space-x-6">
-            <img src="/ssl-secure.png" alt="SSL Secure" className="h-8" />
-            <img src="/payment-options.png" alt="Payment Options" className="h-8" />
+            <img src="/product/ssl-image.jpg" alt="SSL Secure" className="h-12 transition-transform hover:scale-110 border cursor-pointer" />
+            <img src="/product/payment.png" alt="Payment Options" className="h-12 transition-transform hover:scale-110 border cursor-pointer" />
           </div>
           <p className="text-sm text-gray-500 mt-2">
             100% Pembayaran Aman dan Terenkripsi
