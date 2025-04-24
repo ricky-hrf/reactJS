@@ -1,7 +1,10 @@
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom'
 
 const ProductCard = ({ product }) => {
   return (
+    <>
+    <Link to={`/products/${product.id}`}>
     <div className="w-44 h-64 bg-white shadow-lg rounded-b-lg border hover:shadow-2xl hover:border-purple-400 duration-300 cursor-pointer">
       <div className="relative  h-32 flex items-center justify-center overflow-hidden bg-white">
         <img
@@ -11,7 +14,7 @@ const ProductCard = ({ product }) => {
         </div>
       </div>
       <div className="p-2 overflow-hidden">
-        <span className="text-xs text-gray-500 hover:underline">{product.category}</span>
+        <span className="text-xs text-gray-500">{product.category}</span>
         <h3 className="text-xs xs:text-[13px] sm:text-sm md:text-base lg:text-lg font-semibold mt-2 text-gray-700 line-clamp-2">{product.title}</h3>
         <div className="p-2 overflow-hidden">
           <div className="flex items-center mt-1">
@@ -24,7 +27,9 @@ const ProductCard = ({ product }) => {
           </div>
         </div>
       </div>
-    </div>
+    </div>   
+    </Link>
+    </>
   );
 }
 

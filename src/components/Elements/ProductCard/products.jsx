@@ -34,12 +34,13 @@ const Card = ({ product}) => {
           <p className="text-slate-500 text-xs line-clamp-2">{product.description}</p>
         </div>
         <div className="p-2">
-          <button className="mt-2 w-full bg-purple-600 text-white text-sm py-2 rounded-lg flex items-center justify-center hover:bg-purple-700 transition"
-          onClick={() => addToCart(product)}>
+          <button
+            className="mt-2 w-full bg-purple-600 text-white text-sm py-2 rounded-lg flex items-center justify-center hover:bg-purple-700 transition"
+            onClick={() => addToCart(product)}>
               <FaShoppingCart />
-            <span className='ml-2'>
-              Add to Cart
-            </span>
+              <span className='ml-2'>
+                Add to Cart
+              </span>
           </button>
         </div>
       </div>
