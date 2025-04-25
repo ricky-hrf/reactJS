@@ -2,14 +2,18 @@ import MainLayouts from "../components/Layouts/MainLayouts";
 import { getProducts } from "../services/productService";
 import { useState, useEffect } from "react";
 import CardPromo from "../components/Fragments/CardPromo";
-import ProductUnggulan from "../components/Fragments/ProductUnggulan";
+import ProductUnggulan from "../components/Fragments/ProductUnggulanSection";
 import Products from "../components/Fragments/Products"
+import CategorySection from "../components/Fragments/CategorySection";
+import useCategories from "../Hooks/useCategories";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const {allCategories, categoriesLoading} = useCategories();
 
+  // mengambil semua produk dari API
   const fetchProducts = async () => {
     try {
       const data = await getProducts();
@@ -46,6 +50,11 @@ const HomePage = () => {
         <section className="py-4 bg-white rounded-lg shadow-xl" id="products">
           <ProductUnggulan
           products={products} />
+        </section>
+        <section className="py-4 bg-white rounded-lg shadow-xl mt-4">
+          <CategorySection
+            categoriesLoading={categoriesLoading}
+            categories={allCategories} />
         </section>
         <section className="py-4 bg-white rounded-lg shadow-xl mt-4" id="products">
           <Products

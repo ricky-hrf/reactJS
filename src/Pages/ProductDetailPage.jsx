@@ -3,10 +3,11 @@ import { useParams, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import MainLayout from '../components/Layouts/MainLayouts'
 import {FaPlus, FaMinus, FaCommentDots, FaShareAlt,} from 'react-icons/fa';
-import { getProductById, getProductByCategory, getAllCategories } from '../services/productService';
+import { getProductById, getProductByCategory } from '../services/productService';
 import ImageProductDetail from '../components/Fragments/ImageProductDetail';
 import DescriptionProductDetail from '../components/Fragments/DescriptionProductDetail';
 import ConfirmationModal from '../components/Elements/Common/ConfirmationModal';
+import useCategories from '../Hooks/useCategories';
 
 const ProductDetailPage = () => {
   const { addToCart } = useCart();
@@ -19,40 +20,9 @@ const ProductDetailPage = () => {
     return savedQty ? (savedQty) : 1;
   });
   const [openConfirmModal, setOpenConfirmModal] = useState(null);
-
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [relatedLoading, setRelatedLoading] = useState(true);
-  const [allCategories, setAllCategories] = useState([]);
-  const [categoriesLoading, setCategoriesLoading] = useState(true);
-
-    // Fetch all categories dengan gambar
-  useEffect(() => {
-    const fetchCategoriesWithImages = async () => {
-      try {
-        // Ambil semua kategori
-        const categories = await getAllCategories();
-        
-        // Ambil gambar pertama untuk setiap kategori
-        const categoriesWithImages = await Promise.all(
-          categories.map(async (category) => {
-            const products = await getProductByCategory(category);
-            return {
-              name: category,
-              image: products[0]?.image || '/placeholder-image.jpg'
-            };
-          })
-        );
-        
-        setAllCategories(categoriesWithImages);
-      } catch (err) {
-        console.error("Gagal memuat kategori:", err);
-      } finally {
-        setCategoriesLoading(false);
-      }
-    };
-    
-    fetchCategoriesWithImages();
-  }, []);
+  const {allCategories, categoriesLoading} = useCategories();
 
   // mengambil data produk berdasarkan kategori barang
   useEffect(() => {
