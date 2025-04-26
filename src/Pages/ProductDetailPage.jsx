@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import MainLayout from '../components/Layouts/MainLayouts'
 import {FaPlus, FaMinus, FaCommentDots, FaShareAlt,} from 'react-icons/fa';
-import { getProductById, getProductByCategory } from '../services/productService';
+import { getProductById} from '../services/productService';
 import ImageProductDetail from '../components/Fragments/ImageProductDetail';
 import DescriptionProductDetail from '../components/Fragments/DescriptionProductDetail';
 import ConfirmationModal from '../components/Elements/Common/ConfirmationModal';
 import useCategories from '../Hooks/useCategories';
+import CategorySection from '../components/Fragments/CategorySection';
+import useProductByCategory from '../Hooks/useProductByCategory';
+import RelatedProduct from '../components/Fragments/RelatedProducts'
 
 const ProductDetailPage = () => {
   const { addToCart } = useCart();
@@ -20,28 +23,8 @@ const ProductDetailPage = () => {
     return savedQty ? (savedQty) : 1;
   });
   const [openConfirmModal, setOpenConfirmModal] = useState(null);
-  const [relatedProducts, setRelatedProducts] = useState([]);
-  const [relatedLoading, setRelatedLoading] = useState(true);
-  const {allCategories, categoriesLoading} = useCategories();
-
-  // mengambil data produk berdasarkan kategori barang
-  useEffect(() => {
-    const fetchRelatedProducts = async () => {
-      if (product?.category) {
-        try {
-          const data = await getProductByCategory(product.category);
-          const filtered = data.filter(p => p.id !== product.id);
-          setRelatedProducts(filtered.slice(0, 4)); //mengambil 4 produk pertama dari kategori yang sama
-        } catch (err) {
-          setError(err.message);
-        } finally {
-          setRelatedLoading(false);
-        }
-      }
-    };
-    if (product) fetchRelatedProducts();
-  }, [product]);
-
+  const { allCategories, categoriesLoading } = useCategories();
+  const { relatedProducts, loading: relatedLoading } = useProductByCategory(product);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -149,74 +132,21 @@ const ProductDetailPage = () => {
             message="Apakah Anda yakin ingin menambah barang ini ke keranjang?"
             confirmText="Ya, Tambah"
           />
-        </div>
-        <div className="max-w-7xl mx-auto mt-16 mb-8 px-4 sm:px-6 lg:px-8 shadow-purple-300 shadow-lg">
-          <h2 className="text-2xl font-bold text-gray-700 mb-6">
-            Produk Lainnya dalam Kategori {product?.category}
-          </h2>
-          {relatedLoading ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className="animate-pulse bg-gray-200 h-64 rounded-lg"></div>
-              ))}
-            </div>
-          ) : (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {relatedProducts.map((relatedProduct) => (
-                  <Link 
-                    to={`/products/${relatedProduct.id}`}
-                    key={relatedProduct.id}
-                    className="group border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
-                  >
-                  <img
-                    src={relatedProduct.image}
-                    alt={relatedProduct.title}
-                    className="w-full h-48 object-contain"
-                    />
-                  <div className="p-4">
-                    <h3 className="font-semibold text-gray-800 group-hover:text-purple-600 transition-colors">
-                      {relatedProduct.name}
-                    </h3>
-                    <p className="text-lg font-bold text-purple-600 mt-2">
-                      {relatedProduct.price.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR"
-                      })}
-                    </p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )}
-          {!relatedLoading && relatedProducts.length === 0 && (
-            <p className="text-gray-500">Tidak ada produk lain dalam kategori ini</p>
-          )}
           </div>
-
-          <div className="mt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-bold text-gray-700 mb-6">Semua Kategori</h2>
-
-            {categoriesLoading ? (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {[...Array(4)].map((_, i) => (
-                  <div key={i} className="animate-pulse bg-gray-200 h-64 rounded-lg"></div>
-                ))}
-              </div>
-            ) : (
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                  {allCategories.map((category) => (
-                    <div key={category.name} className="border rounded-lg overflow-hidden shadow-sm transition-shadow">
-                      <img src={category.image} alt={category.name} className='w-full h-48 object-contain p-4 bg-white' />
-                      <div className="p-4 bg-gray-50 border-t">
-                        <h3 className='font-semibold text-gray-700 capitalize'>
-                          {category.name.replace(/(^\w|\s\w)/g, m => m.toUpperCase())}
-                        </h3>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-            )}
-          </div>
+          <section className='max-w-7xl mx-auto mt-16 pb-5 mb-8 px-4 sm:px-6 lg:px-8 shadow-purple-300 shadow-lg'>
+            <RelatedProduct
+              product={product}
+              relatedProducts={relatedProducts}
+              loading={relatedLoading}
+            />
+          </section>
+          {/* seksi kategori barang */}
+          <section className='py-4 bg-white rounded-lg shadow-xl mt-4'>
+            <CategorySection 
+              categoriesLoading={categoriesLoading}
+              categories={allCategories}
+            />
+          </section>
         </div>
       </MainLayout>
     </>
