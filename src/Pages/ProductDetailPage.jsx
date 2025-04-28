@@ -20,7 +20,7 @@ const ProductDetailPage = () => {
   const [error, setError] = useState("");
   const [quantity, setQuantity] = useState(() => {
     const savedQty = localStorage.getItem(`quantity_${id}`);
-    return savedQty ? (savedQty) : 1;
+    return savedQty ? Number (savedQty) : 1;
   });
   const [openConfirmModal, setOpenConfirmModal] = useState(null);
   const { allCategories, categoriesLoading } = useCategories();
@@ -47,7 +47,7 @@ const ProductDetailPage = () => {
   }, [quantity, id]);
 
   const incrementQuantity = () => {
-    setQuantity(prev => prev + 1);
+    setQuantity(prev =>  prev + 1);
   };
 
   const decrementQuantity = () => {

@@ -14,7 +14,7 @@ const ConfirmationModal = ({
   if (!isOpen) return null
   
   return (
-    <div className="fixed inset-0  z-[1000] bg-black bg-opacity-50 flex items-center justify-center">
+    <div className="fixed inset-0  z-[1000] bg-black bg-opacity-50 flex items-center justify-center transition-opacity duration-300 ease-in-out">
       <div className="bg-white rounded-lg p-6 max-w-sm w-full mx-4">
         <div className="text-center mb-4">
           <FontAwesomeIcon icon={faExclamationTriangle} className='text-yellow-500 text-4xl mb-3' />
