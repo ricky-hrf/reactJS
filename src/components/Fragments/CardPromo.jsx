@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const CardPromo = () => {
   return (
     <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-2">
@@ -9,9 +11,11 @@ const CardPromo = () => {
           Nikmati diskon eksklusif hingga 50% untuk koleksi produk terbaik kami.
           Buruan sebelum kehabisan!
         </p>
-        <button className="bg-white text-purple-600 px-5 py-2 rounded-full hover:bg-opacity-80 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl">
-          Lihat Promo Lainnya
-        </button>
+        <Link to={'/promo'}>
+          <button className="bg-white text-purple-600 px-5 py-2 rounded-full hover:bg-opacity-80 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl">
+            Lihat Promo Lainnya
+          </button>
+        </Link>
       </div>
           
       <div className="lg:w-1/2 flex sm:flex-row item items-center justify-between gap-2">
