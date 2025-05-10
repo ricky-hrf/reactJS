@@ -11,6 +11,7 @@ import HomePage from './Pages/home';
 import ProductDetail from './Pages/ProductDetailPage'
 import CheckoutPage from './Pages/CheckoutPage';
 import ProductsPromoPage from './Pages/ProductsPromoPage';
+import ProfilePage from './Pages/ProfilePage'
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
   {
     path: "/promo",
     element: <ProductsPromoPage/>
+  },
+  {
+    path: "/profile",
+    element: <ProfilePage/>
   }
 
 ])

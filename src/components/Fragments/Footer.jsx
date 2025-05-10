@@ -20,13 +20,13 @@ const Footer = () => {
           {/* Logo & Deskripsi */}
           <div>
             <h2 className="text-lg font-semibold text-white mb-3">Pembayaran</h2>
-            <div className="grid grid-cols-3 gap-2">
-                <img src="/product/ovoreal.png" alt="Ovo" className="h-12 transition-transform hover:scale-110 rounded cursor-pointer" />
-                <img src="/product/dana.jpeg" alt="SSL Secure" className="h-12 transition-transform hover:scale-110 rounded cursor-pointer" />
-                <img src="/product/link.jpg" alt="SSL Secure" className="h-12 transition-transform hover:scale-110 rounded cursor-pointer" />
-                <img src="/product/Mastercard-Logo-2016-2020.png" alt="master-card" className="h-12 transition-transform hover:scale-110 rounded cursor-pointer" />
-                <img src="/product/ATM_BCA.webp" alt="ATM BCA" className="h-12 transition-transform hover:scale-110 rounded cursor-pointer" />
-                <img src="/product/ATM_BRI.jpg" alt="ATM BRI" className="h-12 transition-transform hover:scale-110 rounded cursor-pointer" />
+            <div className="grid grid-cols-4 gap-2">
+                <img src="/product/ovoreal.png" alt="Ovo" className="h-8 w-16 transition-transform hover:scale-110 rounded cursor-pointer" />
+                <img src="/product/dana.jpeg" alt="SSL Secure" className="h-8 w-16 transition-transform hover:scale-110 rounded cursor-pointer" />
+                <img src="/product/link.jpg" alt="SSL Secure" className="h-8 w-16 transition-transform hover:scale-110 rounded cursor-pointer" />
+                <img src="/product/Mastercard-Logo-2016-2020.png" alt="master-card" className="h-8 w-16 transition-transform hover:scale-110 rounded cursor-pointer" />
+                <img src="/product/ATM_BCA.webp" alt="ATM BCA" className="h-8 w-16 transition-transform hover:scale-110 rounded cursor-pointer" />
+                <img src="/product/ATM_BRI.jpg" alt="ATM BRI" className="h-8 w-16 transition-transform hover:scale-110 rounded cursor-pointer" />
             </div>
           </div>
 
