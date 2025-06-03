@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { FiChevronLeft, FiEdit, FiHeart, FiShoppingBag, FiLogOut, FiCreditCard, FiMapPin, FiShield, FiMessageSquare } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { FiEdit, FiHeart, FiShoppingBag, FiLogOut, FiCreditCard, FiMapPin, FiShield, FiMessageSquare } from 'react-icons/fi';
+import HeaderPage from "../components/Fragments/HeaderProfilePage";
 
 const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -34,19 +34,7 @@ const ProfilePage = () => {
 
   return (
     <div className="min-h-screen bg-purple-50">
-      {/* Header */}
-      <header className="">
-        <div className="px-8 pt-8">
-          <Link to="/" className="flex items-center font-semibold text-gray-600 hover:underline">
-            <FiChevronLeft className="mr-2" />
-            Kembali ke Beranda
-          </Link>
-        </div>
-        <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex justify-center items-center">
-          <h1 className="flex flex-col-1 text-2xl font-extrabold text-purple-600">My Account</h1>
-        </div>
-      </header>
-
+      <HeaderPage />
       <main className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row gap-6">
           {/* Sidebar */}
