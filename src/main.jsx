@@ -45,7 +45,7 @@ const router = createBrowserRouter([
     element: <ProductsPromoPage/>
   },
   {
-    path: "/profile",
+    path: "/users/:id",
     element: <ProfilePage/>
   },
   {

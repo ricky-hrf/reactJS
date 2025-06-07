@@ -1,45 +1,32 @@
+import axios from "axios";
+
+const USER_API_URL = "http://localhost:5000/api/users";
+
 // mengambil semua data user
 export const fetchUsers = async () => {
   try {
-    const response = await fetch("http://localhost:5000/api/users");
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    return await response.json();
+    const response = await axios.get(USER_API_URL);
+    return response.data;
   } catch (error) {
-    console.error("Error fetching users: ", error);
-    throw error;
+    console.error("Error fetching users:", error);
+    if (error.response) {
+      throw new Error(`HTTP error! status: ${error.response.status}`);
+    } else {
+      throw new Error("Network error or server is down");
+    }
   }
-};
-
-// mengambil data satu per satu
-// export const fetchUserById = async (userId) => {
-//   try {
-//     const response = await fetch(`http://localhost:5000/api/users/${userId}`);
-    
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! status: ${response.status}`);
-//     }
-    
-//     return await response.json();
-//   } catch (error) {
-//     console.error(`Error fetching user with ID ${userId}:`, error);
-//     throw error;
-//   }
-// };
-
+}
+// mengambil data user berdasarkan ID
 export const fetchUserById = async (userId) => {
   try {
-    const response = await fetch(`http://localhost:5000/api/users/${userId}`);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    return await response.json();
+    const response = await axios.get(`${USER_API_URL}/${userId}`);
+    return response.data;
   } catch (error) {
     console.error(`Error fetching user with ID ${userId}:`, error);
-    throw error;
+    if (error.response) {
+      throw new Error(`HTTP error! status: ${error.response.status}`);
+    } else {
+      throw new Error("Network error or server is down");
+    }
   }
-};
-
+}

@@ -26,16 +26,17 @@ const UserPage = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="p-4">
+    <div className="min-h-screen bg-white">
+      <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
       <h2 className="text-xl font-bold mb-4">Daftar Pengguna</h2>
       <table className="min-w-full bg-white shadow rounded-lg overflow-hidden">
         <thead>
           <tr className="bg-gray-100 text-left">
-            <th className="p-3">Gambar</th>
+            <th className="p-3">Avatar</th>
             <th className="p-3">Nama</th>
             <th className="p-3">No. HP</th>
             <th className="p-3">Email</th>
-            <th className="p-3">Umur</th>
+            <th className="p-3">Role</th>
           </tr>
         </thead>
         <tbody>
@@ -45,18 +46,19 @@ const UserPage = () => {
                 <img
                   src={user.foto}
                   alt={user.nama}
-                  className="w-12 h-12 rounded-full object-cover border-purple-600"
+                  className="w-12 h-12 rounded-full object-cover border-2 border-purple-600"
                 />
               </td>
               <td className="p-3">{user.nama}</td>
               <td className="p-3">{user.hp}</td>
               <td className="p-3">{user.email}</td>
-              <td className="p-3">{user.umur}</td>
+              <td className="p-3">{user.role}</td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
+  </div>
   )
 }
 export default UserPage;
