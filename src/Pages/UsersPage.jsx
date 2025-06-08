@@ -29,34 +29,16 @@ const UserPage = () => {
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
       <h2 className="text-xl font-bold mb-4">Daftar Pengguna</h2>
-      <table className="min-w-full bg-white shadow rounded-lg overflow-hidden">
-        <thead>
-          <tr className="bg-gray-100 text-left">
-            <th className="p-3">Avatar</th>
-            <th className="p-3">Nama</th>
-            <th className="p-3">No. HP</th>
-            <th className="p-3">Email</th>
-            <th className="p-3">Role</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user.id} className="border-b hover:bg-gray-50">
-              <td className="p-3">
-                <img
-                  src={user.foto}
-                  alt={user.nama}
-                  className="w-12 h-12 rounded-full object-cover border-2 border-purple-600"
-                />
-              </td>
-              <td className="p-3">{user.nama}</td>
-              <td className="p-3">{user.hp}</td>
-              <td className="p-3">{user.email}</td>
-              <td className="p-3">{user.role}</td>
-            </tr>
+        <div className="use-grid">
+          {users.map(user => (
+            <div key={user.id} className="bg-white shadow-md rounded-lg p-4 mb-4">
+              <h3 className="text-lg font-semibold">{user.nama}</h3>
+              <p className="text-gray-600">Email: {user.email}</p>
+              <p className="text-gray-600">Joined: {new Date(user.joindate).toLocaleDateString()}</p>
+              <img src={user.gambar} alt={user.nama} className="w-24 h-24 rounded-full mt-2" />
+            </div>
           ))}
-        </tbody>
-      </table>
+        </div>
     </div>
   </div>
   )
