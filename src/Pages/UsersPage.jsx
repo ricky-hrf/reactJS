@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { fetchUsers } from "../services/UsersServices";
+import UserCard from "../components/Fragments/UserCard";
+import { FaPlus } from 'react-icons/fa';
 
 const UserPage = () => {
   const [users, setUsers] = useState([]);
@@ -28,17 +30,17 @@ const UserPage = () => {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
-      <h2 className="text-xl font-bold mb-4">Daftar Pengguna</h2>
-        <div className="use-grid">
-          {users.map(user => (
-            <div key={user.id} className="bg-white shadow-md rounded-lg p-4 mb-4">
-              <h3 className="text-lg font-semibold">{user.nama}</h3>
-              <p className="text-gray-600">Email: {user.email}</p>
-              <p className="text-gray-600">Joined: {new Date(user.joindate).toLocaleDateString()}</p>
-              <img src={user.gambar} alt={user.nama} className="w-24 h-24 rounded-full mt-2" />
-            </div>
-          ))}
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-bold mb-4">Daftar Pengguna</h2>
+          <button className="bg-purple-600 text-white px-4 py-2 rounded mb-4">
+            <FaPlus className="inline mr-2" /> <span>Tambah Pengguna</span>
+          </button>
         </div>
+          <div className="user-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {users.map(user => (
+              <UserCard key={user.id} user={user} />
+            ))}
+          </div>
     </div>
   </div>
   )
