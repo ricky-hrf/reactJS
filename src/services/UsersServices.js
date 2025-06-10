@@ -30,3 +30,18 @@ export const fetchUserById = async (userId) => {
     }
   }
 }
+
+// menambahkan user baru
+export const addUser = async (userData) => {
+  try {
+    const response = await axios.post(USER_API_URL, userData);
+    return response.data;
+  } catch (error) {
+    console.error("Error adding user:", error);
+    if (error.response) {
+      throw new Error(`HTTP error! status: ${error.response.status}`);
+    } else {
+      throw new Error("Network error or server is down");
+    }
+  }
+}
